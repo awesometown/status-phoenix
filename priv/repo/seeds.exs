@@ -9,3 +9,15 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+alias StatusPhoenix.{Repo, User}
+
+[
+	%{
+		first_name: "Test",
+		last_name: "User",
+		email: "test@example.com",
+		password: "asdfg"
+	},
+]
+|> Enum.map(&User.changeset(%User{}, &1))
+|> Enum.each(&Repo.insert!(&1))

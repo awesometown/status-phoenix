@@ -26,7 +26,7 @@ config :guardian, Guardian,
 	issuer: "StatusPhoenix",
 	ttl: {3, :days},
 	verify_issuer: true,
-	secret_key: 12345,
+	secret_key: "2345",
 	serializer: StatusPhoenix.GuardianSerializer
 
 # Import environment specific config. This must remain at the bottom
