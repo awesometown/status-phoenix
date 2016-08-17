@@ -11,6 +11,10 @@ defmodule StatusPhoenix.SessionView do
 		}
 	end
 
+	def render("delete.json", _) do
+		%{ok: true}
+	end
+
 	def render("error.json", _) do
 		%{error: "Invalid email or password"}
 	end

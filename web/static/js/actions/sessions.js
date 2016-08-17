@@ -21,7 +21,7 @@ const Actions = {
 			.then((data) => {
 				localStorage.setItem('phoenixAuthToken', data.jwt);
 				setCurrentUser(dispatch, data.user);
-				dispatch(push('/'));
+				dispatch(push('/admin'));
 			})
 			.catch((error) => {
 				error.response.json()
@@ -31,6 +31,20 @@ const Actions = {
 						error: errorJSON.error,
 					});
 				});
+			});
+		};
+	},
+
+	signOut: () => {
+		return dispatch => {
+			httpDelete('/api/v1/sessions')
+			.then((data) => {
+				localStorage.removeItem('phoenixAuthToken');
+				dispatch({ type: Constants.USER_SIGNED_OUT })
+				dispatch(push('/sign_in'));
+			})
+			.catch((error) => {
+				console.log(error);
 			});
 		};
 	},
