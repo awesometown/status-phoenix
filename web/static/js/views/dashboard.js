@@ -1,9 +1,12 @@
 import React from "react";
 
+import ServicesList from './services'
+
 export default React.createClass({
+
 	render() {
 		return (
-			<h1>Hi There</h1>
+			<ServicesList />
 		)
 	}
 })
