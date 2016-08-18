@@ -9,7 +9,7 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-alias StatusPhoenix.{Repo, User}
+alias StatusPhoenix.{Repo, User, Service}
 
 [
 	%{
@@ -20,4 +20,14 @@ alias StatusPhoenix.{Repo, User}
 	},
 ]
 |> Enum.map(&User.changeset(%User{}, &1))
+|> Enum.each(&Repo.insert!(&1))
+
+[
+	%{
+		name: "Test Service",
+		description: "A Service for Tests",
+		service_status_id: "foo"
+	},
+]
+|> Enum.map(&Service.changeset(%Service{}, &1))
 |> Enum.each(&Repo.insert!(&1))

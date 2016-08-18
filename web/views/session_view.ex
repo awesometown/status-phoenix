@@ -3,8 +3,7 @@ defmodule StatusPhoenix.SessionView do
 
 	require Logger
 
-	def render("show.json", %{jwt: jwt, user: user} = stuff) do
-		Logger.debug(inspect(user))
+	def render("show.json", %{jwt: jwt, user: user}) do
 		%{
 			jwt: jwt,
 			user: user

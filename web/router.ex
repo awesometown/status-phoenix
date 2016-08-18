@@ -24,6 +24,8 @@ defmodule StatusPhoenix.Router do
       post "/sessions", SessionController, :create
       delete "/sessions", SessionController, :delete
 
+      resources "/services", ServiceController, only: [:index, :show]
+
       get "/current_user", CurrentUserController, :show
     end
   end
