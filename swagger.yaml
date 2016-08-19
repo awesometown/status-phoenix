@@ -1,0 +1,99 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Status
+  description: Status Dashboard API
+  version: "1.0.0"
+# the domain of the service
+host: example.com
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /api/v1
+produces:
+  - application/json
+paths:
+  /services:
+    get:
+      summary: All Services
+      description: |
+        Returns a list of all configured services.
+      tags:
+        - Services
+      responses:
+        200:
+          description: An array of services
+          schema:
+            $ref: '#/definitions/Services'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: Create Service
+      description: Create a new service.
+      tags:
+        - Services
+      responses:
+        201:
+          description: Service created
+          headers:
+            Location:
+              description: Location of the newly created service
+              type: string
+
+  /services/{serviceId}:
+    get:
+      summary: Service Details
+      description: Returna specific service by id.
+      tags:
+        - Services
+      parameters:
+        - name: serviceId
+          in: path
+          required: true
+          description: The id of the service to retrieve
+          type: string
+      responses:
+        200:
+          description: The requested service
+          schema:
+            $ref: '#/definitions/Service'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Services:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Service'
+      bar:
+        type: string
+  Service:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier for the service.
+      name:
+        type: string
+        description: Short name for the service.
+      description:
+        type: string
+        description: Description of the service.
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
