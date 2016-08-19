@@ -25,6 +25,7 @@ defmodule StatusPhoenix.Router do
       delete "/sessions", SessionController, :delete
 
       resources "/services", ServiceController, only: [:index, :show]
+      resources "/incidents", IncidentController
 
       get "/current_user", CurrentUserController, :show
     end
@@ -33,7 +34,7 @@ defmodule StatusPhoenix.Router do
   scope "/", StatusPhoenix do
     pipe_through :browser # Use the default browser stack
 
-    get "*path", PageController, :index
+    get "/*path", PageController, :index
     
     #resources "/services", ServiceController, only: [:index, :show]
   end

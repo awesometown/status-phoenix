@@ -9,7 +9,7 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-alias StatusPhoenix.{Repo, User, Service}
+alias StatusPhoenix.{Repo, User, Service, Incident}
 
 [
 	%{
@@ -30,4 +30,17 @@ alias StatusPhoenix.{Repo, User, Service}
 	},
 ]
 |> Enum.map(&Service.changeset(%Service{}, &1))
+|> Enum.each(&Repo.insert!(&1))
+
+{:ok, datetime} = Ecto.DateTime.cast("2001-01-01 00:00:00")
+
+[
+	%{
+		title: "An Incident!",
+		state: "foo",
+		type: "bar",
+		start_time: datetime
+	},
+]
+|> Enum.map(&Incident.changeset(%Incident{}, &1))
 |> Enum.each(&Repo.insert!(&1))
