@@ -43,11 +43,10 @@ paths:
             Location:
               description: Location of the newly created service
               type: string
-
   /services/{serviceId}:
     get:
       summary: Service Details
-      description: Returna specific service by id.
+      description: Returns specific service by id.
       tags:
         - Services
       parameters:
@@ -65,6 +64,34 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /incidents:
+    get:
+      summary: Incidents List
+      description: Returns a list of all incidents
+      tags:
+      - Incidents
+      responses:
+        200:
+          description: A list of incidents
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Incident'
+    post:
+      summary: Create a new incident
+      description: foo
+      tags:
+        - Incidents
+      parameters:
+        - name: incident
+          in: body
+          description: Incident to create
+          required: true
+          schema:
+            $ref: '#/definitions/NewIncident'
+      responses:
+        200:
+          description: foo
 definitions:
   Services:
     type: object
@@ -87,6 +114,69 @@ definitions:
       description:
         type: string
         description: Description of the service.
+
+  IncidentCommon:
+    type: object
+    properties:
+      title:
+        type: string
+        description: Title of the incident.
+      state:
+        type: string
+        description: The current state of the incident.
+      type:
+        type: string
+        description: The type of the incident.
+      service_status_id:
+        type: string
+        description: The current state of any affected services
+      affected_service_ids:
+        type: array
+        description: A list of ids of affected services.
+        items:
+          type: string
+          description: The id of an affected service.
+
+  Incident:
+    allOf:
+    - $ref: '#/definitions/IncidentCommon'
+    - required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the incident.
+        incident_updates:
+          type: array
+          items:
+            $ref: '#/definitions/IncidentUpdate'
+    
+  NewIncident:
+    allOf:
+    - $ref: '#/definitions/IncidentCommon'
+    - required:
+      - description
+      properties:
+        description:
+          type: string
+          description: Description to be applied to the initial update for the incident.
+          
+  IncidentUpdate:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier for this incident update.
+      description:
+        type: string
+        description: A description for this update.
+      state:
+        type: string
+        description: The new state for this incident and affected services.
+      updated_by:
+        type: string
+        description: Id of the user who created this incident.
+        
   Error:
     type: object
     properties:
