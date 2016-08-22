@@ -5,7 +5,7 @@ defmodule StatusPhoenix.ServiceView do
 		%{services: services}
 	end
 
-   def render("show.json", %{service: service}) do
+   def render("show.json", service) do
 		service
 	end
 end

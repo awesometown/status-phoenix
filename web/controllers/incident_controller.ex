@@ -29,7 +29,7 @@ defmodule StatusPhoenix.IncidentController do
     render(conn, "show.json", incident: incident)
   end
 
-  def update(conn, %{"id" => id, "incident" => incident_params}) do
+  def update(conn, %{"id" => id} = incident_params) do
     incident = Repo.get!(Incident, id)
     changeset = Incident.changeset(incident, incident_params)
 
