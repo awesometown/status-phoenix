@@ -6,7 +6,7 @@ defmodule StatusPhoenix.ErrorView do
   end
 
   def render("404.json", _assigns) do
-    %{status: 404}
+    %{status: 404, error: "Not found"}
   end
 
   def render("500.html", _assigns) do
