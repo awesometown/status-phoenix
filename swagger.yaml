@@ -1,5 +1,3 @@
-# this is an example of the Uber API
-# as a demonstration of an API spec in YAML
 swagger: '2.0'
 info:
   title: Status
@@ -92,6 +90,43 @@ paths:
       responses:
         200:
           description: foo
+  /incidents/{incidentId}:
+    get:
+      summary: Incident Details
+      description: Details about an incident and updates made to it.
+      tags:
+      - Incidents
+      parameters:
+        - name: incidentId
+          type: string
+          in: path
+          required: true
+          description: Unique ID of the incident
+      responses:
+        200:
+          description: The requested incident
+    post:
+      summary: Update Incident
+      description: Update the specified incident.
+      tags:
+      - Incidents
+      parameters:
+        - name: incidentId
+          in: path
+          description: Unique ID of the incident
+          required: true
+          type: string
+        - name: incidentUpdate
+          in: body
+          description: The update being made to the incident
+          required: true
+          schema:
+            $ref: '#/definitions/IncidentUpdate'
+      responses:
+        200:
+          description: The updated incident
+          schema:
+            $ref: '#/definitions/Incident'
 definitions:
   Services:
     type: object
