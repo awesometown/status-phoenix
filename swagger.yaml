@@ -1,5 +1,3 @@
-# this is an example of the Uber API
-# as a demonstration of an API spec in YAML
 swagger: '2.0'
 info:
   title: Status
@@ -127,10 +125,10 @@ definitions:
       type:
         type: string
         description: The type of the incident.
-      service_status_id:
+      serviceStatusId:
         type: string
         description: The current state of any affected services
-      affected_service_ids:
+      affectedServiceIds:
         type: array
         description: A list of ids of affected services.
         items:
@@ -146,7 +144,7 @@ definitions:
         id:
           type: string
           description: Unique identifier for the incident.
-        incident_updates:
+        incidentUpdates:
           type: array
           items:
             $ref: '#/definitions/IncidentUpdate'
@@ -173,7 +171,7 @@ definitions:
       state:
         type: string
         description: The new state for this incident and affected services.
-      updated_by:
+      updatedBy:
         type: string
         description: Id of the user who created this incident.
         
