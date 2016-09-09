@@ -11,6 +11,7 @@ module.exports = {
 	entry: {
 		application: [
 			web('js/app.js'),
+			web('css/app.css')
 		],
 	},
 
