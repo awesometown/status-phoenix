@@ -1,6 +1,6 @@
 import Constants from '../constants';
 import { normalize, Schema, arrayOf } from 'normalizr';
-import { service } from '../schema';
+import { instance } from '../schema';
 
 const initialState = {
 	list: [],
@@ -10,20 +10,15 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
 	switch(action.type) {
-		case Constants.SERVICES_FETCHING:
+		case Constants.INCIDENTS_FETCHING:
 			return { ...state, fetching: true };
 
-		case Constants.SERVICES_RECEIVED:
-			const normalized = normalize(action.list, arrayOf(service));
+		case Constants.INCIDENTS_RECEIVED:
+			const normalized = normalize(action.list, arrayOf(incident));
 			return { ...state,
 				fetching: false,
 				listFetched: true,
 				items: normalized.entities.services };
-		//case Constants.CURRENT_USER:
-		//	return { ...state, currentUser: action.currentUser };
-		//case Constants.USER_SIGNED_OUT:
-		//	return initialState;
-
 		default:
 			return state;
 	}

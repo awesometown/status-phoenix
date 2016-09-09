@@ -18,12 +18,18 @@ class ServicesList extends React.Component {
 	}
 
 	render() {
-		const { fetching, list } = this.props;
+		const { fetching, items } = this.props;
 
 		if (fetching) return (<h1>Fetching</h1>);
 
-		var serviceNodes = list.map(service =>
-			<li key={service.id}>{service.name} - {service.description}</li>);
+		var serviceNodes = Object.keys(items).map((id, index) => {
+			const service = items[id];
+			return (
+				<Row key={id}>
+					<Col md={4}><Link to={"/admin/services/" + id}>{service.name}</Link></Col>
+				</Row>
+			);
+		});
 
 		return (
 			<div id="services-list">
